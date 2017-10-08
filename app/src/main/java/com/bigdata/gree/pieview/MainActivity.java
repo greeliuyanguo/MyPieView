@@ -14,6 +14,10 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
 
     private PieView mPieView;
+
+    /**
+     * The data of PieView.
+     */
     private List<PieData> mPieList = new ArrayList<>();
     private Random mRandom = new Random();
     private MyButton mContinuousChange;
@@ -21,11 +25,14 @@ public class MainActivity extends AppCompatActivity {
     private TimerTask mTask = new TimerTask() {
         @Override
         public void run() {
-
+            //To do something
         }
     };
     private Timer mTimer = new Timer();
 
+    /**
+     * Cycling send and receive message.
+     */
     private android.os.Handler mHandler = new android.os.Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -59,16 +66,19 @@ public class MainActivity extends AppCompatActivity {
                 if (mContinuousChange.getMode().equals(MyButton.MODE_ENABLE)) {
                     mHandler.sendEmptyMessage(0);
                     mContinuousChange.setMode(MyButton.MODE_STOP);
-                    mContinuousChange.setText("停止");
+                    mContinuousChange.setText("Stop");
                 } else if (mContinuousChange.getMode().equals(MyButton.MODE_STOP)) {
                     mHandler.removeMessages(0);
                     mContinuousChange.setMode(MyButton.MODE_ENABLE);
-                    mContinuousChange.setText("连续变换");
+                    mContinuousChange.setText("ContinualChange");
                 }
             }
         });
     }
 
+    /**
+     * Initialize the list.
+     */
     private void initPieView() {
 
         PieData pd1 = new PieData("Name1", mRandom.nextFloat());
@@ -98,6 +108,6 @@ public class MainActivity extends AppCompatActivity {
         mPieList.add(pd12);
 
         mPieView.setData(mPieList);
-        mPieView.setStartAngle(0);
+        mPieView.setStartAngle(mRandom.nextInt(360));
     }
 }

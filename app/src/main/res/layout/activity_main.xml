@@ -16,7 +16,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="单击更换"
+        android:text="ClickChange"
+        android:textAllCaps="false"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent" />
 
@@ -24,7 +25,8 @@
         android:id="@+id/continuous_change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="连续更换"
+        android:text="ContinualChange"
+        android:textAllCaps="false"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/click_change" />

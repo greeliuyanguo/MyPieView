@@ -14,7 +14,7 @@ import java.util.List;
  * Author:liuyanguo
  * Date:2017/10/8
  * Time:9:19
- * Description:
+ * Description: Followed by the PieView of author GcsSloop
  */
 
 public class PieView extends View {
@@ -93,28 +93,28 @@ public class PieView extends View {
     }
 
     /**
-     * 对外提供设置起始角度的接口
+     * Supplying interface for setting start angle of invalidate.
      *
      * @param startAngle
      */
     public void setStartAngle(int startAngle) {
         this.mStartAngle = startAngle;
-        invalidate(); //数据更新之后重新绘制
+        invalidate(); //refresh
     }
 
     /**
-     * 对外提供设置数据的接口
+     * Supplying interface for setting list data of invalidate.
      *
      * @param data
      */
     public void setData(List<PieData> data) {
         this.mData = data;
         initPieValue();
-        invalidate(); //数据更新之后重新绘制
+        invalidate(); //refresh
     }
 
     /**
-     * 初始化数据
+     * Initialize data.
      */
     private void initPieValue() {
         if (null == mData || mData.size() == 0) {

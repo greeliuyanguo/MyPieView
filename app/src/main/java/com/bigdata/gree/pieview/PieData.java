@@ -4,7 +4,7 @@ package com.bigdata.gree.pieview;
  * Author:liuyanguo
  * Date:2017/10/8
  * Time:9:20
- * Description:
+ * Description:Nothing to say.
  */
 
 public class PieData {
