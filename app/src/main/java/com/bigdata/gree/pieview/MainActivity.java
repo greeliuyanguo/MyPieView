@@ -1,6 +1,7 @@
 package com.bigdata.gree.pieview;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -20,16 +21,19 @@ public class MainActivity extends AppCompatActivity {
     private TimerTask mTask = new TimerTask() {
         @Override
         public void run() {
-            mPieList.clear();
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    initPieView();
-                }
-            });
+
         }
     };
     private Timer mTimer = new Timer();
+
+    private android.os.Handler mHandler = new android.os.Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            mPieList.clear();
+            initPieView();
+            sendEmptyMessageDelayed(0, 10l);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,15 +57,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (mContinuousChange.getMode().equals(MyButton.MODE_ENABLE)) {
-                    mTimer.schedule(mTask, 0l, 100l);
+                    mHandler.sendEmptyMessage(0);
                     mContinuousChange.setMode(MyButton.MODE_STOP);
-                    mContinuousChange.setText("停    止");
-                    mContinuousChange.setTextColor(0x606060);
+                    mContinuousChange.setText("停止");
                 } else if (mContinuousChange.getMode().equals(MyButton.MODE_STOP)) {
-                    mTimer.cancel();
+                    mHandler.removeMessages(0);
                     mContinuousChange.setMode(MyButton.MODE_ENABLE);
                     mContinuousChange.setText("连续变换");
-                    mContinuousChange.setTextColor(0x000000);
                 }
             }
         });
