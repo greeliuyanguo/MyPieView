@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.turn).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.turnToCanvasActivity).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MainActivity.this.startActivity(new Intent(MainActivity.this, CanvasActivity.class));

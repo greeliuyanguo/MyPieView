@@ -1,5 +1,6 @@
 package com.bigdata.gree.pieview.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -40,6 +41,17 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
         showFragment(CanvasActivity.RECTFRAGMENT);
 
         initRadios();
+        turn();
+    }
+
+    private void turn() {
+        findViewById(R.id.turnToPicBmActivity).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CanvasActivity.this.startActivity(new Intent(CanvasActivity.this, PicBmActivity.class));
+                CanvasActivity.this.finish();
+            }
+        });
     }
 
     private void initRadios() {

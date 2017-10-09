@@ -3,20 +3,29 @@
     package="com.bigdata.gree.pieview">
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.MainActivity">
+        <activity
+            android:name=".view.MainActivity"
+            android:label="MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.CanvasActivity" />
+        <activity
+            android:name=".view.CanvasActivity"
+            android:label="CanvasActivity" />
+        <activity
+            android:name=".view.PicBmActivity"
+            android:label="PicBmActivity" />
     </application>
 
 </manifest>
