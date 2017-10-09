@@ -23,11 +23,7 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
     private RotateFragment mRotateFragment;
     private SkewFragment mSkewFragment;
 
-    private Fragment[] fragments = new Fragment[]{
-            mRectFragment,
-            mRotateFragment,
-            mSkewFragment
-    };
+    private Fragment[] fragments;
     private FragmentManager fm = getSupportFragmentManager();
     private int lastIndex = 0;
 
@@ -85,6 +81,12 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
         } else {
             mSkewFragment = (SkewFragment) savedInstanceState.get("SkewFragment");
         }
+
+        fragments = new Fragment[]{
+                mRectFragment,
+                mRotateFragment,
+                mSkewFragment
+        };
     }
 
     public void showFragment(int showIndex) {
