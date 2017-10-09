@@ -1,4 +1,4 @@
-package com.bigdata.gree.pieview;
+package com.bigdata.gree.pieview.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -7,6 +7,8 @@ import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.bigdata.gree.pieview.model.PieData;
 
 import java.util.List;
 

@@ -1,9 +1,16 @@
-package com.bigdata.gree.pieview;
+package com.bigdata.gree.pieview.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
+
+import com.bigdata.gree.pieview.R;
+import com.bigdata.gree.pieview.model.PieData;
+import com.bigdata.gree.pieview.widget.MyButton;
+import com.bigdata.gree.pieview.widget.PieView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +21,7 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
 
     private PieView mPieView;
-
+    private Button mTurn;
     /**
      * The data of PieView.
      */
@@ -72,6 +79,14 @@ public class MainActivity extends AppCompatActivity {
                     mContinuousChange.setMode(MyButton.MODE_ENABLE);
                     mContinuousChange.setText("ContinualChange");
                 }
+            }
+        });
+
+        findViewById(R.id.turn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.this.startActivity(new Intent(MainActivity.this, CanvasActivity.class));
+                MainActivity.this.finish();
             }
         });
     }

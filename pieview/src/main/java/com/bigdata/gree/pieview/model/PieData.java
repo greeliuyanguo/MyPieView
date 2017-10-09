@@ -1,4 +1,4 @@
-package com.bigdata.gree.pieview;
+package com.bigdata.gree.pieview.model;
 
 /**
  * Author:liuyanguo

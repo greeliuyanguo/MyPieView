@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PieView.iml" filepath="$PROJECT_DIR$/PieView.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pieview/pieview.iml" filepath="$PROJECT_DIR$/pieview/pieview.iml" />
     </modules>
   </component>
 </project>

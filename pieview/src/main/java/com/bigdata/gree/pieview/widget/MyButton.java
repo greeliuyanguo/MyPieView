@@ -1,4 +1,4 @@
-package com.bigdata.gree.pieview;
+package com.bigdata.gree.pieview.widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,7 +13,7 @@ import android.widget.Button;
  */
 
 @SuppressLint("AppCompatCustomView")
-class MyButton extends Button {
+public class MyButton extends Button {
 
     public static final String MODE_ENABLE = "enable";
     public static final String MODE_STOP = "stop";
