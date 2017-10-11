@@ -1,6 +1,7 @@
 package com.bigdata.gree.pieview.view;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ public class PicBmActivity extends AppCompatActivity {
     private List<Fragment> mFragments;
     private List<FragmentPagerAdapterModel> mData;
     private MyViewPagerAdapter mAdapter;
+    private TabLayout mTabLayout;
 
     private PictureFragment mPictureFragment;
     private BitmapFragment mBitmapFragment;
@@ -29,6 +31,7 @@ public class PicBmActivity extends AppCompatActivity {
 
         initField();
         initViewPager();
+        initTabLayout();
     }
 
     private void initField() {
@@ -39,9 +42,12 @@ public class PicBmActivity extends AppCompatActivity {
         mFragments = new ArrayList<>();
         mFragments.add(mPictureFragment);
         mFragments.add(mBitmapFragment);
+        mFragments.add(mPictureFragment);
+        mFragments.add(mBitmapFragment);
+        mFragments.add(mPictureFragment);
 
         mData = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 5; i++) {
             FragmentPagerAdapterModel model = new FragmentPagerAdapterModel();
             model.setName(i + "_name");
             model.setSex(i + "_sex");
@@ -55,5 +61,47 @@ public class PicBmActivity extends AppCompatActivity {
     private void initViewPager() {
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         mViewPager.setAdapter(mAdapter);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mTabLayout.getTabAt(position).select();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    private void initTabLayout() {
+        mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        mTabLayout.addTab(mTabLayout.newTab().setText("标题1"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("标题2"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("标题3"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("标题4"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("标题5"));
+
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 }
