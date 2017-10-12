@@ -21,8 +21,8 @@ public class PicBmActivity extends AppCompatActivity {
     private MyViewPagerAdapter mAdapter;
     private TabLayout mTabLayout;
 
-    private PictureFragment mPictureFragment;
-    private BitmapFragment mBitmapFragment;
+    private PictureFragment mPictureFragment, mPictureFragment2, mPictureFragment3;
+    private BitmapFragment mBitmapFragment, mBitmapFragment2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +37,17 @@ public class PicBmActivity extends AppCompatActivity {
     private void initField() {
 
         mPictureFragment = new PictureFragment();
+        mPictureFragment2 = new PictureFragment();
         mBitmapFragment = new BitmapFragment();
+        mBitmapFragment2 = new BitmapFragment();
+        mPictureFragment3 = new PictureFragment();
 
         mFragments = new ArrayList<>();
         mFragments.add(mPictureFragment);
         mFragments.add(mBitmapFragment);
-        mFragments.add(mPictureFragment);
-        mFragments.add(mBitmapFragment);
-        mFragments.add(mPictureFragment);
+        mFragments.add(mPictureFragment3);
+        mFragments.add(mBitmapFragment2);
+        mFragments.add(mPictureFragment2);
 
         mData = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
@@ -90,7 +93,7 @@ public class PicBmActivity extends AppCompatActivity {
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(tab.getPosition());
+                mViewPager.setCurrentItem(tab.getPosition(), false);
             }
 
             @Override
