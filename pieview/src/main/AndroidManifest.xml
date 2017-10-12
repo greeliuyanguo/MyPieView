@@ -30,6 +30,12 @@
         <service android:name=".service.MyService" />
         <service android:name=".service.WeatherService" />
         <service android:name=".service.MyIntentService" />
+
+        <receiver android:name=".reveiver.MyBroadcastReceiver">
+            <intent-filter>
+                <action android:name="HelloWorld" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

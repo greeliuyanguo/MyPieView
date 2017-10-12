@@ -1,5 +1,7 @@
 package com.bigdata.gree.pieview.view;
 
+import android.content.BroadcastReceiver;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -21,6 +23,8 @@ public class PicBmActivity extends AppCompatActivity {
     private MyViewPagerAdapter mAdapter;
     private TabLayout mTabLayout;
 
+    private BroadcastReceiver mReceiver;
+
     private PictureFragment mPictureFragment, mPictureFragment2, mPictureFragment3;
     private BitmapFragment mBitmapFragment, mBitmapFragment2;
 
@@ -32,6 +36,8 @@ public class PicBmActivity extends AppCompatActivity {
         initField();
         initViewPager();
         initTabLayout();
+
+        registerReceiver(mReceiver, new IntentFilter("HelloWorld"));
     }
 
     private void initField() {
@@ -106,5 +112,12 @@ public class PicBmActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        unregisterReceiver(mReceiver);
     }
 }
