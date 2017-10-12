@@ -26,6 +26,8 @@
         <activity
             android:name=".view.PicBmActivity"
             android:label="PicBmActivity" />
+
+        <service android:name=".service.MyService" />
     </application>
 
 </manifest>
