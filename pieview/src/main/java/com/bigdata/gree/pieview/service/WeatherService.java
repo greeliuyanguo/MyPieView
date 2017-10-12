@@ -19,7 +19,7 @@ import com.bigdata.gree.pieview.view.MainActivity;
  * Date:2017/10/12
  * Time:10:57
  * Description:
- * [思路描述]
+ * [思路]
  * --1.用NotificationCompat.Builder的内部类（构造者模式）构建一个mBuilder，最后用mBuilder来构建一个通知Notification
  * ------1.1 用mBuilder的setSmallIcon(),setContentTitle(),setContentText()来具体配置Notification的
  * ------1.2 mBuilder需要设置ContentIntent,这个方法中需要传递一个PendingIntent的类对象
