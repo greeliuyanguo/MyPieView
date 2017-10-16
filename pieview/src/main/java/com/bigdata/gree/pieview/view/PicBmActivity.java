@@ -1,7 +1,10 @@
 package com.bigdata.gree.pieview.view;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -9,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bigdata.gree.pieview.MyApplication;
 import com.bigdata.gree.pieview.R;
@@ -17,10 +21,15 @@ import com.bigdata.gree.pieview.model.FragmentPagerAdapterModel;
 import com.bigdata.gree.pieview.reveiver.MyBroadcastReceiver;
 import com.bigdata.gree.pieview.service.WeatherService;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PicBmActivity extends AppCompatActivity {
+
+    private static final String TAG = "PicBmActivity";
 
     private ViewPager mViewPager;
     private List<Fragment> mFragments;
@@ -28,11 +37,35 @@ public class PicBmActivity extends AppCompatActivity {
     private MyViewPagerAdapter mAdapter;
     private TabLayout mTabLayout;
     private FloatingActionButton mFab;
+    private ProgressDialog mPDialog;
 
     private MyBroadcastReceiver mReceiver;
 
     private PictureFragment mPictureFragment, mPictureFragment2, mPictureFragment3;
     private BitmapFragment mBitmapFragment, mBitmapFragment2;
+
+    private int[] resIds = new int[]{
+            R.raw.cmdut1ils,
+            R.raw.cmdutils,
+            R.raw.cmdutils_opencl,
+            R.raw.configure,
+            R.raw.ff1mpeg,
+            R.raw.ffm1peg_cuvid,
+            R.raw.ffmp1eg,
+            R.raw.ffmp1eg_hw,
+            R.raw.ffmp1eg_opt,
+            R.raw.ffmpeg1_qsv,
+            R.raw.ffmpeg_fi1lter,
+            R.raw.ffmpeg_videotoolb1ox,
+            R.raw.ffplay,
+            R.raw.ffprobe,
+            R.raw.ffserver,
+            R.raw.ffserver_c1onfig,
+            R.raw.ffserver_config,
+            R.raw.gitattributes,
+            R.raw.gitignore,
+            R.raw.travis
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +77,23 @@ public class PicBmActivity extends AppCompatActivity {
         initTabLayout();
         initFab();
         initReceiver();
-
+        initProgressDialog();
     }
+
+    private void initProgressDialog() {
+
+        mPDialog = new ProgressDialog(this);
+        mPDialog.setProgress(0);
+        mPDialog.setMax(100);
+        mPDialog.setCancelable(false);
+
+        mPDialog.setTitle("提示");
+        mPDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        mPDialog.setIcon(R.mipmap.ic_launcher);
+        mPDialog.setMessage("正在上传...");
+        mPDialog.setCanceledOnTouchOutside(false);
+    }
+
 
     private void initReceiver() {
         registerReceiver(mReceiver, new IntentFilter("HelloWorld"));
@@ -56,10 +104,20 @@ public class PicBmActivity extends AppCompatActivity {
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (MyApplication.sCurrentIndex % 2 == 0) {
-                    PicBmActivity.this.sendBroadcast(new Intent("HelloWorld"));
-                } else if (MyApplication.sCurrentIndex % 2 == 1) {
-                    PicBmActivity.this.startService(new Intent(PicBmActivity.this, WeatherService.class));
+                switch (MyApplication.sCurrentIndex) {
+                    case 0:
+                        PicBmActivity.this.sendBroadcast(new Intent("HelloWorld"));
+                        break;
+                    case 1:
+                        PicBmActivity.this.startService(new Intent(PicBmActivity.this, WeatherService.class));
+                        break;
+                    case 2:
+                        new UploadFilesTask().execute();
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
                 }
             }
         });
@@ -146,6 +204,54 @@ public class PicBmActivity extends AppCompatActivity {
         super.onDestroy();
         if (null != mReceiver) {
             unregisterReceiver(mReceiver);
+        }
+    }
+
+    class UploadFilesTask extends AsyncTask<Void, Integer, Integer> {
+
+        @Override
+        protected void onPreExecute() {
+            mPDialog.show();
+        }
+
+        @Override
+        protected Integer doInBackground(Void... params) {
+            int fileCounts = 0;
+            for (int i = 0; i < resIds.length; i++) {
+                BufferedReader br = null;
+                try {
+                    String line = "";
+                    br = new BufferedReader(new InputStreamReader(Resources.getSystem().openRawResource(resIds[i])));
+                    while (null != (line = br.readLine())) {
+                    }
+                    fileCounts++;
+                    int progress = (int) ((fileCounts / (float) resIds.length) * 100);
+                    publishProgress(progress);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if (null != br) {
+                        try {
+                            br.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+            return fileCounts;
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+            mPDialog.dismiss();
+            Toast.makeText(PicBmActivity.this, "已请求完，数量：" + integer, Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            mPDialog.setProgress(Integer.valueOf(values[0]));
         }
     }
 }

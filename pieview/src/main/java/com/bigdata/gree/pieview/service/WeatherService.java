@@ -47,6 +47,7 @@ public class WeatherService extends Service {
     private void showNotification() {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
+                        .setAutoCancel(true)
                         .setSmallIcon(R.mipmap.ic_launcher_round)
                         .setContentTitle("这是标题")
                         .setContentText("这是内容");

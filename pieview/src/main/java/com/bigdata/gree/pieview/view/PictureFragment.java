@@ -30,7 +30,7 @@ public class PictureFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
-        mModel = (FragmentPagerAdapterModel) bundle.getParcelable("message");
+        mModel = bundle.getParcelable("message");
         Log.d(TAG, mModel.toString());
     }
 
