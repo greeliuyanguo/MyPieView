@@ -11,6 +11,8 @@ import android.app.Application;
 
 public class MyApplication extends Application {
 
+    public static int sCurrentIndex = 0;
+
     @Override
     public void onCreate() {
         super.onCreate();

@@ -1,16 +1,21 @@
 package com.bigdata.gree.pieview.view;
 
-import android.content.BroadcastReceiver;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
+import com.bigdata.gree.pieview.MyApplication;
 import com.bigdata.gree.pieview.R;
 import com.bigdata.gree.pieview.adapter.MyViewPagerAdapter;
 import com.bigdata.gree.pieview.model.FragmentPagerAdapterModel;
+import com.bigdata.gree.pieview.reveiver.MyBroadcastReceiver;
+import com.bigdata.gree.pieview.service.WeatherService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +27,9 @@ public class PicBmActivity extends AppCompatActivity {
     private List<FragmentPagerAdapterModel> mData;
     private MyViewPagerAdapter mAdapter;
     private TabLayout mTabLayout;
+    private FloatingActionButton mFab;
 
-    private BroadcastReceiver mReceiver;
+    private MyBroadcastReceiver mReceiver;
 
     private PictureFragment mPictureFragment, mPictureFragment2, mPictureFragment3;
     private BitmapFragment mBitmapFragment, mBitmapFragment2;
@@ -36,8 +42,27 @@ public class PicBmActivity extends AppCompatActivity {
         initField();
         initViewPager();
         initTabLayout();
+        initFab();
+        initReceiver();
 
+    }
+
+    private void initReceiver() {
         registerReceiver(mReceiver, new IntentFilter("HelloWorld"));
+    }
+
+    private void initFab() {
+        mFab = (FloatingActionButton) findViewById(R.id.floatActionButton);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (MyApplication.sCurrentIndex % 2 == 0) {
+                    PicBmActivity.this.sendBroadcast(new Intent("HelloWorld"));
+                } else if (MyApplication.sCurrentIndex % 2 == 1) {
+                    PicBmActivity.this.startService(new Intent(PicBmActivity.this, WeatherService.class));
+                }
+            }
+        });
     }
 
     private void initField() {
@@ -78,6 +103,7 @@ public class PicBmActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
+                MyApplication.sCurrentIndex = position;
                 mTabLayout.getTabAt(position).select();
             }
 
@@ -99,6 +125,7 @@ public class PicBmActivity extends AppCompatActivity {
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                MyApplication.sCurrentIndex = tab.getPosition();
                 mViewPager.setCurrentItem(tab.getPosition(), false);
             }
 
@@ -117,7 +144,8 @@ public class PicBmActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        unregisterReceiver(mReceiver);
+        if (null != mReceiver) {
+            unregisterReceiver(mReceiver);
+        }
     }
 }
