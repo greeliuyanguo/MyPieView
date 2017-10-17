@@ -3,7 +3,6 @@ package com.bigdata.gree.pieview.view;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -64,7 +63,6 @@ public class PicBmActivity extends AppCompatActivity {
             R.raw.ffserver_config,
             R.raw.gitattributes,
             R.raw.gitignore,
-            R.raw.travis
     };
 
     @Override
@@ -221,13 +219,17 @@ public class PicBmActivity extends AppCompatActivity {
                 BufferedReader br = null;
                 try {
                     String line = "";
-                    br = new BufferedReader(new InputStreamReader(Resources.getSystem().openRawResource(resIds[i])));
+                    br = new BufferedReader(new InputStreamReader(getResources().openRawResource(resIds[i])));
                     while (null != (line = br.readLine())) {
                     }
                     fileCounts++;
                     int progress = (int) ((fileCounts / (float) resIds.length) * 100);
+                    Thread thread = getMainLooper().getThread();
+                    thread.sleep(500);
                     publishProgress(progress);
                 } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
                     if (null != br) {
