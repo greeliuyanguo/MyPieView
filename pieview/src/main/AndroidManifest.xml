@@ -38,6 +38,8 @@
                 <action android:name="HelloWorld" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".view.RxJavaActivity"></activity>
     </application>
 
 </manifest>
